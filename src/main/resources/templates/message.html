@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BlogPlatform :: Message</title>
+</head>
+<body>
+    <div class="container">
+        <a th:href="@{/}">Home</a>
+        <div class="message">
+            <h2 th:text="${message.title}">Title</h2>
+            <h5 th:text="'Created at ' + ${message.createdAt}">Created At</h5>
+            <h5 th:text="'Updated at ' + ${message.updatedAt}">Updated At</h5>
+            <p th:text="${message.body}">body text</p>
+        </div>
+        <ul sec:authorize="isAuthenticated()">
+            <li><a th:href="@{'/messages/' + ${message.id} + '/edit'}">Edit</a></li>
+            <li><a th:href="@{'/messages/' + ${message.id} + '/delete'}">Delete</a></li>
+        </ul>
+    </div>
+
+</body>
+</html>

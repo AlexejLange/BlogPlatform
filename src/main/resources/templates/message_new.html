@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BlogPlatform :: New Message</title>
+</head>
+<body>
+    <div class="container">
+        <a th:href="@{/}">Home</a>
+        <form action="#"
+              th:action="@{'/messages/new'}"
+              th:object="${message}"
+              method="POST">
+            <input type="hidden" th:field="*{account}" />
+            <input type="hidden" th:field="*{createdAt}" />
+            <h2>Write new Message</h2>
+            <div>
+                <label for="new-message-title">Title</label>
+                <input id="new-message-title" type="text" th:field="*{title}" placeholder="Title"/>
+            </div>
+            <div>
+                <label for="new-message-body">Body</label>
+                <textarea id="new-message-body" th:field="*{body}"></textarea>
+            </div>
+            <button type="submit">Publish Message</button>
+        </form>
+    </div>
+
+</body>
+</html>

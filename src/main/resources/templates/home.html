@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BlogPlatform :: Home</title>
+</head>
+<body>
+<div class="container">
+    <h1>BlogPlatform Application</h1>
+    <hr />
+    <ul>
+        <li><a th:href="@{/messages/new}">New Message</a></li>
+    </ul>
+    <div class="messages-container">
+        <div class="message" th:each="message : ${messages}">
+            <h2><a th:href="@{'/messages/' + ${message.id}}" th:text="${message.title}">Title</a></h2>
+            <h5 th:text="'Written by ' + ${message.account.firstName}">Account First Name</h5>
+            <h5 th:text="'Published at ' + ${message.createdAt}">Created At</h5>
+            <h5 th:text="'Updated at ' + ${message.updatedAt}">Updated At</h5>
+            <p th:text="${message.body}">body text</p>
+            <br>
+        </div>
+    </div>
+    <hr />
+    <ul sec:authorize="!isAuthenticated()">
+        <li><a th:href="@{/register}">Register</a></li>
+        <li><a th:href="@{/login}">Login</a></li>
+    </ul>
+    <div sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}"
+              method="POST">
+            <div>
+                <label>Hi, <span sec:authentication="name">Username</span></label>
+            </div>
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>
