@@ -1,0 +1,78 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="Alexej Lange" id="#1">
+        <createTable tableName="message">
+            <column name="message_id" type="Long" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="title" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="body" type="text">
+                <constraints nullable="false" />
+            </column>
+            <column name="created_ad" type="datetime" defaultValueDate="current_datetime">
+                <constraints nullable="false" />
+            </column>
+            <column name="updated_at" type="datetime" defaultValue="null">
+                <constraints nullable="true" />
+            </column>
+            <column name="author_id" type="int">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="account">
+            <column name="account_id" type="Long" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="password" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="first_name" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="last_name" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <createTable tableName="authority">
+            <column name="authority_id" type="Long" autoIncrement="true">
+                <constraints primaryKey="true" />
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                baseTableName="message" baseColumnNames="account_id"
+                constraintName="message_account_id"
+                referencedTableName="account"
+                referencedColumnNames="account_id" />
+    </changeSet>
+
+<!--    <changeSet author="Alexej Lange" id="#2">-->
+<!--        <insert tableName="authority">-->
+<!--            <column name="authority_id" value="1"/>-->
+<!--            <column name="authority_name" value="ROLE_ADMIN"/>-->
+<!--        </insert>-->
+<!--        <insert tableName="authority">-->
+<!--            <column name="authority_id" value="2"/>-->
+<!--            <column name="authority_name" value="ROLE_USER"/>-->
+<!--        </insert>-->
+<!--        <loadData tableName="account"-->
+<!--                  separator=";"-->
+<!--                  file="db/data/db_account.csv">-->
+<!--        </loadData>-->
+<!--    </changeSet>-->
+
+</databaseChangeLog>
